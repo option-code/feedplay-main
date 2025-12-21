@@ -27,7 +27,7 @@ subprojects {
         if (project.hasProperty("android")) {
             android {
                 if (project.plugins.hasPlugin("com.android.library")) {
-                    compileSdkVersion 35
+                    compileSdkVersion 36
 
                     // Workaround for plugins that access android.flutter property
                     if (!project.android.extensions.findByName("flutter")) {

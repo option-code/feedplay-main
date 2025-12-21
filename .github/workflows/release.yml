@@ -1,12 +1,12 @@
 name: Release APK
 
-#on:
-  #workflow_dispatch:
-  #push:
-   # branches:
-     # - main
-    #tags:
-     # - 'v*'
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
 
 jobs:
   build-android-apk:
