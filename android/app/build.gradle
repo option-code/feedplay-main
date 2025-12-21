@@ -1,0 +1,102 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace "com.betapix.feedplay"
+    compileSdk 35
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "com.betapix.feedplay"
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 35
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // Ensure gradle version compatibility
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libfbjni.so'
+    }
+}
+
+flutter {
+    source = '../..'
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+    
+    // Google Mobile Ads SDK (AdMob)
+    implementation 'com.google.android.gms:play-services-ads:24.8.0'
+
+    // ============================================
+    // AdMob Mediation Adapters - ENABLED
+    // ============================================
+    // Multiple ad networks for better fill rate and revenue
+    // These adapters allow AdMob to show ads from multiple sources
+
+    // Chartboost
+    implementation "com.google.ads.mediation:chartboost:9.10.2.0"
+
+    // IronSource
+    implementation "com.google.ads.mediation:ironsource:9.2.0.0"
+
+    // Unity Ads
+    implementation "com.unity3d.ads:unity-ads:4.16.2"
+    implementation "com.google.ads.mediation:unity:4.16.5.0"
+
+    // AppLovin
+    implementation "com.google.ads.mediation:applovin:13.5.1.0"
+
+    // Meta Audience Network (Facebook Ads)
+    implementation "com.google.ads.mediation:facebook:6.21.0.0"
+
+
+
+    
+    // The app will now work with Facebook, Unity, AppLovin, IronSource, Chartboost adapters
+}

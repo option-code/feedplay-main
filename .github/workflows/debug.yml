@@ -1,0 +1,65 @@
+name: Debug APK
+
+on:
+  #push:  # 🔁 Enable this to auto-trigger on code push
+  #   branches:
+  #     - main
+  #     - master
+  #     - develop
+  #     - 'feature/**'  # Auto trigger on feature branches
+  # pull_request:  # 🔁 Enable this to auto-trigger on PRs
+  #   branches:
+  #     - main
+  #     - master
+  #     - develop
+  workflow_dispatch: # ✅ Manual triggering only (currently active)
+
+jobs:
+  build-debug-apk:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.0' # Flutter version with withValues() support
+          channel: 'stable'
+          cache: true
+
+      - name: Verify Flutter installation
+        run: flutter --version
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Check Flutter installation
+        run: flutter doctor -v
+
+      - name: Build Debug APK
+        run: flutter build apk --debug
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 3
+
+      - name: APK Build Info
+        run: |
+          echo "## Debug APK Build Completed! 🎉" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**APK Location:** \`build/app/outputs/flutter-apk/app-debug.apk\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Download:** Check the Artifacts section below ⬇️" >> $GITHUB_STEP_SUMMARY
+          ls -lh build/app/outputs/flutter-apk/

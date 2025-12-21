@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="GamePlus - HTML5 Games">
+
+  <!-- OpenGraph Meta Tags -->
+  <meta property="og:title" content="GamePlus - HTML5 Games">
+  <meta property="og:description" content="Play the best HTML5 games on GamePlus - fun for all ages!">
+  <meta property="og:image" content="https://gplus-web.vercel.app/icons/OpenGraph.png"> <!-- Add your image URL here -->
+  <meta property="og:url" content="https://gplus-web.vercel.app"> <!-- Add your website URL here -->
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GamePlus - HTML5 Games">
+  <meta name="twitter:description" content="Play the best HTML5 games on GamePlus - fun for all ages!">
+  <meta name="twitter:image" content="https://gplus-web.vercel.app/icons/OpenGraph.png"> <!-- Add your image URL here -->
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://gplus-web.vercel.app"> <!-- Add your canonical URL here -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="GamePlus">
+  <meta name="theme-color" content="#0B1C2C">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <title>GamePlus</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    html, body { height: 100%; margin: 0; background: #0B1C2C; }
+    #loader { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; letter-spacing: .5px; }
+    #loader .wrap { width: 420px; max-width: 86vw; padding: 24px 22px; border-radius: 16px; background: rgba(26,31,46,.7); box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(6px); }
+    #loader .percent { font-weight: 900; font-size: 28px; line-height: 1; text-align: center; margin-bottom: 14px; }
+    #loader .label { text-align: center; margin-top: 12px; font-weight: 800; font-size: 15px; letter-spacing: .6px; color: #fff; }
+    #loader .bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,.14); overflow: hidden; }
+    #loader .bar-fill { height: 100%; width: 0%; border-radius: inherit; background: linear-gradient(90deg,#6366F1,#8B5CF6,#EC4899); box-shadow: 0 0 20px rgba(99,102,241,.6); transition: width .25s ease-out; }
+    #loader .dots { display: inline-block; min-width: 24px; font-weight: 900; }
+    #error { position: fixed; left: 0; right: 0; bottom: 0; padding: 12px 16px; background: rgba(255,0,0,.12); color: #fff; font-family: monospace; max-height: 40vh; overflow: auto; }
+    .loader { width: 112px; height: 112px; position: relative; margin: 12px auto 18px; }
+    .box1, .box2, .box3 { border: 16px solid #f5f5f5; box-sizing: border-box; position: absolute; display: block; }
+    .box1 { width: 112px; height: 48px; margin-top: 64px; margin-left: 0px; animation: abox1 4s 1s forwards ease-in-out infinite; }
+    .box2 { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; animation: abox2 4s 1s forwards ease-in-out infinite; }
+    .box3 { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; animation: abox3 4s 1s forwards ease-in-out infinite; }
+    @keyframes abox1 { 0% { width: 112px; height: 48px; margin-top: 64px; margin-left: 0px; } 12.5% { width: 48px; height: 48px; margin-top: 64px; margin-left: 0px; } 25% { width: 48px; height: 48px; margin-top: 64px; margin-left: 0px; } 37.5% { width: 48px; height: 48px; margin-top: 64px; margin-left: 0px; } 50% { width: 48px; height: 48px; margin-top: 64px; margin-left: 0px; } 62.5% { width: 48px; height: 48px; margin-top: 64px; margin-left: 0px; } 75% { width: 48px; height: 112px; margin-top: 0px; margin-left: 0px; } 87.5% { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; } 100% { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; } }
+    @keyframes abox2 { 0% { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; } 12.5% { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; } 25% { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; } 37.5% { width: 48px; height: 48px; margin-top: 0px; margin-left: 0px; } 50% { width: 112px; height: 48px; margin-top: 0px; margin-left: 0px; } 62.5% { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; } 75% { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; } 87.5% { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; } 100% { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; } }
+    @keyframes abox3 { 0% { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; } 12.5% { width: 48px; height: 48px; margin-top: 0px; margin-left: 64px; } 25% { width: 48px; height: 112px; margin-top: 0px; margin-left: 64px; } 37.5% { width: 48px; height: 48px; margin-top: 64px; margin-left: 64px; } 50% { width: 48px; height: 48px; margin-top: 64px; margin-left: 64px; } 62.5% { width: 48px; height: 48px; margin-top: 64px; margin-left: 64px; } 75% { width: 48px; height: 48px; margin-top: 64px; margin-left: 64px; } 87.5% { width: 48px; height: 48px; margin-top: 64px; margin-left: 64px; } 100% { width: 112px; height: 48px; margin-top: 64px; margin-left: 0px; } }
+  </style>
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    serviceWorkerVersion = "{{flutter_service_worker_version}}";
+
+    var _flutter = {
+      buildConfig: {
+        entrypoint: "main.dart.js",
+        serviceWorkerVersion: serviceWorkerVersion
+      }
+    };
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</head>
+ <body>
+  <div id="loader">
+    <div class="wrap">
+      <div class="loader"><div class="box1"></div><div class="box2"></div><div class="box3"></div></div>
+      <div class="percent"><span id="loader-percent">0</span>%</div>
+      <div class="bar"><div id="loader-fill" class="bar-fill"></div></div>
+      <div class="label">Loading<span id="loader-dots" class="dots">.</span></div>
+    </div>
+  </div>
+  <div id="error" style="display:none"></div>
+  <script>
+    (function(){
+      var pEl = document.getElementById('loader-percent');
+      var fEl = document.getElementById('loader-fill');
+      var dEl = document.getElementById('loader-dots');
+      var dots = ['.','..','...'];
+      var di = 0;
+      var pct = 0;
+      var tick = setInterval(function(){
+        pct = Math.min(95, pct + 2 + Math.random()*6);
+        pEl.textContent = Math.floor(pct);
+        fEl.style.width = pct + '%';
+        dEl.textContent = dots[di];
+        di = (di + 1) % dots.length;
+      }, 300);
+      function finish(){
+        var start = pct;
+        var target = 100;
+        var t0 = performance.now();
+        var dur = 700;
+        function step(t){
+          var k = Math.min(1, (t - t0) / dur);
+          var v = start + (target - start) * k;
+          pEl.textContent = Math.floor(v);
+          fEl.style.width = v + '%';
+          if(k < 1){ requestAnimationFrame(step); }
+          else { clearInterval(tick); var l = document.getElementById('loader'); if(l) l.remove(); }
+        }
+        requestAnimationFrame(step);
+      }
+      window.addEventListener('flutter-first-frame', finish);
+    })();
+    window.addEventListener('error', function(e){
+      var el = document.getElementById('error');
+      if(!el) return;
+      var msg = (e.error && (e.error.stack || e.error.toString())) || e.message || 'Unknown error';
+      el.textContent = msg;
+      el.style.display = 'block';
+      console.error(msg);
+    });
+    window.addEventListener('unhandledrejection', function(e){
+      var el = document.getElementById('error');
+      if(!el) return;
+      var msg = (e.reason && (e.reason.stack || e.reason.toString())) || 'Unhandled promise rejection';
+      el.textContent = msg;
+      el.style.display = 'block';
+      console.error(msg);
+    });
+  </script>
+ </body>
+ </html>
+
+

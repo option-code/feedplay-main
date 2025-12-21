@@ -1,0 +1,71 @@
+buildscript {
+    ext.kotlin_version = '1.9.24' // safer stable version; 2.1.0 may break some plugins
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.7.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://storage.googleapis.com/download.flutter.io' }
+        maven { url 'https://cboost.jfrog.io/artifactory/chartboost-ads/' }
+
+
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            android {
+                if (project.plugins.hasPlugin("com.android.library")) {
+                    compileSdkVersion 35
+
+                    // Workaround for plugins that access android.flutter property
+                    if (!project.android.extensions.findByName("flutter")) {
+                        project.android.extensions.create("flutter", FlutterExtension, project)
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Define a minimal FlutterExtension class for plugin compatibility
+class FlutterExtension {
+    def project
+    FlutterExtension(def project) {
+        this.project = project
+    }
+    def getMinSdkVersion() {
+        return 21
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects {
+    configurations.all { config ->
+        config.resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'org.bouncycastle' && details.requested.name == 'bcprov-jdk18on') {
+                details.useVersion '1.76'
+                details.because 'bcprov 1.78+ ships Java 21 bytecode which Jetifier cannot transform under AGP 8.x'
+            }
+        }
+    }
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
