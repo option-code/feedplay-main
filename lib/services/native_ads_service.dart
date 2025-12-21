@@ -21,9 +21,9 @@ class NativeAdsService {
   // For Android: ca-app-pub-3940256099942544/2247696110
   // For iOS: ca-app-pub-3940256099942544/3986624511
   static const String _androidAdUnitId =
-      'ca-app-pub-2927681167600861/2681613002'; // Replace with your actual AdMob native advanced ad unit ID
+      'ca-app-pub-3940256099942544/2247696110'; // Replace with your actual AdMob native advanced ad unit ID
   static const String _iosAdUnitId =
-      'ca-app-pub-2927681167600861/2681613002'; // Replace with your actual AdMob native advanced ad unit ID
+      'ca-app-pub-3940256099942544/3986624511'; // Replace with your actual AdMob native advanced ad unit ID
 
   /// Load a native ad with retry logic
   static Future<NativeAd?> loadNativeAd({bool retry = false}) async {

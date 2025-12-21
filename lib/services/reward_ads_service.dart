@@ -9,7 +9,7 @@ class RewardAdsService {
   static int _retryCount = 0;
   static const int _maxRetries = 5; // Increased retries
   static bool _isAdMobInitialized = false;
-  
+
   /// Set AdMob initialization status
   static void setAdMobInitialized(bool initialized) {
     _isAdMobInitialized = initialized;
@@ -18,8 +18,9 @@ class RewardAdsService {
   // Test Ad Unit IDs (replace with your actual Ad Unit IDs in production)
   // For Android: ca-app-pub-3940256099942544/5224354917
   // For iOS: ca-app-pub-3940256099942544/1712485313
-  static const String _androidAdUnitId = 'ca-app-pub-2927681167600861/3447173416';
-  static const String _iosAdUnitId = 'ca-app-pub-2927681167600861/3447173416';
+  static const String _androidAdUnitId =
+      'ca-app-pub-3940256099942544/5224354917';
+  static const String _iosAdUnitId = 'ca-app-pub-3940256099942544/1712485313';
 
   /// Load a rewarded ad with retry logic and return whether an ad became available
   static Future<bool> loadRewardedAd({bool retry = false}) async {
@@ -28,12 +29,13 @@ class RewardAdsService {
       print('Rewarded Ad: Ads disabled on web platform');
       return false;
     }
-    
+
     // Wait for AdMob initialization if not ready
     if (!_isAdMobInitialized && !retry) {
       print('AdMob not initialized yet, waiting...');
       int waitCount = 0;
-      while (!_isAdMobInitialized && waitCount < 50) { // Wait up to 5 seconds
+      while (!_isAdMobInitialized && waitCount < 50) {
+        // Wait up to 5 seconds
         await Future.delayed(const Duration(milliseconds: 100));
         waitCount++;
       }
@@ -41,13 +43,15 @@ class RewardAdsService {
         print('AdMob initialization timeout, proceeding anyway...');
       }
     }
-    
+
     if (_rewardedAd != null && !retry) {
       print('Ad already loaded, ready to show');
       return true;
     }
 
-    if (!retry && _loadingCompleter != null && !_loadingCompleter!.isCompleted) {
+    if (!retry &&
+        _loadingCompleter != null &&
+        !_loadingCompleter!.isCompleted) {
       print('Ad load already in progress, waiting...');
       return _loadingCompleter!.future;
     }
@@ -55,12 +59,12 @@ class RewardAdsService {
     if (!retry && _isLoading && _loadingCompleter != null) {
       return _loadingCompleter!.future;
     }
-    
+
     _isLoading = true;
     final completer = Completer<bool>();
     _loadingCompleter = completer;
-    
-    final adUnitId = kIsWeb 
+
+    final adUnitId = kIsWeb
         ? _androidAdUnitId // Default for web (use Android test ID)
         : defaultTargetPlatform == TargetPlatform.android
             ? _androidAdUnitId
@@ -77,30 +81,32 @@ class RewardAdsService {
 
     try {
       print('Loading rewarded ad (attempt ${_retryCount + 1})...');
-    await RewardedAd.load(
-      adUnitId: adUnitId,
-      request: const AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          _rewardedAd = ad;
-          _isLoading = false;
+      await RewardedAd.load(
+        adUnitId: adUnitId,
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          onAdLoaded: (ad) {
+            _rewardedAd = ad;
+            _isLoading = false;
             _retryCount = 0; // Reset retry count on success
             print('✅ Rewarded ad loaded successfully!');
             complete(true);
-        },
-        onAdFailedToLoad: (error) {
-          _isLoading = false;
+          },
+          onAdFailedToLoad: (error) {
+            _isLoading = false;
             print('❌ Ad failed to load: ${error.code} - ${error.message}');
             print('Domain: ${error.domain}');
-            
+
             // Retry for JavascriptEngine errors with longer delays
-            if (error.code == 0 && 
-                (error.message.contains('JavascriptEngine') || 
-                 error.message.contains('Unable to obtain')) && 
+            if (error.code == 0 &&
+                (error.message.contains('JavascriptEngine') ||
+                    error.message.contains('Unable to obtain')) &&
                 _retryCount < _maxRetries) {
               _retryCount++;
-              final delaySeconds = _retryCount * 3; // Longer delays: 3s, 6s, 9s, 12s, 15s
-              print('⏳ Retrying ad load in $delaySeconds seconds (attempt $_retryCount/$_maxRetries)');
+              final delaySeconds =
+                  _retryCount * 3; // Longer delays: 3s, 6s, 9s, 12s, 15s
+              print(
+                  '⏳ Retrying ad load in $delaySeconds seconds (attempt $_retryCount/$_maxRetries)');
               Future.delayed(Duration(seconds: delaySeconds), () async {
                 final retryResult = await loadRewardedAd(retry: true);
                 complete(retryResult);
@@ -110,9 +116,9 @@ class RewardAdsService {
               print('❌ Ad loading failed after all retries');
               complete(false);
             }
-        },
-      ),
-    );
+          },
+        ),
+      );
     } catch (e) {
       _isLoading = false;
       print('❌ Exception loading ad: $e');
@@ -129,14 +135,15 @@ class RewardAdsService {
     VoidCallback? onAdFailed,
   }) async {
     print('🎬 Attempting to show rewarded ad...');
-    
+
     // Disable ads on web platform
     if (kIsWeb) {
-      print('Rewarded Ad: Ads disabled on web platform, calling reward callback directly');
+      print(
+          'Rewarded Ad: Ads disabled on web platform, calling reward callback directly');
       onAdRewarded();
       return true;
     }
-    
+
     // Ensure AdMob is initialized
     if (!_isAdMobInitialized) {
       print('⚠️ AdMob not initialized, initializing now...');
@@ -149,7 +156,7 @@ class RewardAdsService {
         return false;
       }
     }
-    
+
     // Load ad if not already loaded
     if (_rewardedAd == null) {
       print('📥 No ad loaded, loading now...');
@@ -185,12 +192,12 @@ class RewardAdsService {
         ad.dispose();
         // Load next ad for future use (background)
         loadRewardedAd();
-        
+
         // Complete the completer with reward status
         if (!completer.isCompleted) {
           completer.complete(userRewarded);
         }
-        
+
         // If user didn't earn reward, call failed callback
         if (!userRewarded && onAdFailed != null) {
           onAdFailed();
@@ -202,12 +209,12 @@ class RewardAdsService {
         print('❌ Ad failed to show: ${error.code} - ${error.message}');
         // Try to load next ad
         loadRewardedAd();
-        
+
         // Complete the completer with failure
         if (!completer.isCompleted) {
           completer.complete(false);
         }
-        
+
         onAdFailed?.call();
       },
     );
@@ -215,14 +222,14 @@ class RewardAdsService {
     // Show the ad with reward callback
     try {
       print('▶️ Showing ad...');
-    ad.show(
-      onUserEarnedReward: (ad, reward) {
-        userRewarded = true;
+      ad.show(
+        onUserEarnedReward: (ad, reward) {
+          userRewarded = true;
           print('🎁 User earned reward: ${reward.type} - ${reward.amount}');
-        // Call reward callback immediately when user earns reward
-        onAdRewarded();
-      },
-    );
+          // Call reward callback immediately when user earns reward
+          onAdRewarded();
+        },
+      );
     } catch (e) {
       print('❌ Exception showing ad: $e');
       ad.dispose();
@@ -251,4 +258,3 @@ class RewardAdsService {
     _loadingCompleter = null;
   }
 }
-

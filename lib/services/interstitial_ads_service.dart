@@ -19,8 +19,8 @@ class InterstitialAdsService {
   // For Android: ca-app-pub-3940256099942544/1033173712
   // For iOS: ca-app-pub-3940256099942544/4411468910
   static const String _androidAdUnitId =
-      'ca-app-pub-2927681167600861/5531137620';
-  static const String _iosAdUnitId = 'ca-app-pub-2927681167600861/5531137620';
+      'ca-app-pub-3940256099942544/1033173712';
+  static const String _iosAdUnitId = 'ca-app-pub-3940256099942544/4411468910';
 
   /// Load an interstitial ad with retry logic
   static Future<bool> loadInterstitialAd({bool retry = false}) async {
