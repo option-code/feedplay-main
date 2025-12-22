@@ -3310,8 +3310,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
+    final bool? savedNotificationPreference =
+        prefs.getBool('notifications_enabled');
+    final bool actualNotificationStatus =
+        await NotificationService.checkNotificationPermissions();
+
     setState(() {
-      _notificationsEnabled = prefs.getBool('notifications_enabled') ?? true;
+      // If a preference is saved, use it, but ensure it doesn't contradict the actual permission status.
+      // If actualNotificationStatus is false, _notificationsEnabled must be false.
+      _notificationsEnabled =
+          savedNotificationPreference ?? true && actualNotificationStatus;
+      if (!actualNotificationStatus) {
+        _notificationsEnabled = false;
+      }
     });
   }
 
@@ -3437,11 +3448,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 trailing: Switch(
                   value: _notificationsEnabled,
                   onChanged: (val) async {
-                    setState(() => _notificationsEnabled = val);
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setBool('notifications_enabled', val);
                     if (val) {
-                      await NotificationService.scheduleDailyNotifications();
+                      final granted = await NotificationService
+                          .requestNotificationPermissions();
+                      if (granted == true) {
+                        setState(() => _notificationsEnabled = true);
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('notifications_enabled', true);
+                        await NotificationService.scheduleDailyNotifications();
+                      } else {
+                        // If permission denied, revert the switch
+                        setState(() => _notificationsEnabled = false);
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('notifications_enabled', false);
+                      }
+                    } else {
+                      setState(() => _notificationsEnabled = false);
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool('notifications_enabled', false);
+                      await NotificationService.cancelAllNotifications();
                     }
                   },
                   // Pass the current state value
@@ -4967,11 +4992,27 @@ class _GameScreenState extends State<GameScreen> {
                               textAlign: TextAlign.center,
                             ),
                             const SizedBox(height: 8),
-                            LinearProgressIndicator(
-                              value: _progress,
-                              backgroundColor: Colors.white24,
-                              valueColor: const AlwaysStoppedAnimation<Color>(
-                                Color(0xFF8B5CF6),
+                            ShaderMask(
+                              shaderCallback: (bounds) {
+                                return const LinearGradient(
+                                  colors: [
+                                    Color(0xFFFF8C42), // Clean Orange
+                                    Color(0xFFFF1493), // Fresh Pink
+                                    Color(0xFF9D4EDD), // Vibrant Purple
+                                    Color(0xFF4361EE), // Clear Blue
+                                    Color(0xFF34D399), // Emerald Green
+                                    Color(0xFFFACC15), // Amber Yellow
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ).createShader(bounds);
+                              },
+                              child: LinearProgressIndicator(
+                                value: _progress,
+                                backgroundColor: Colors.white24,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                  Colors.white,
+                                ),
                               ),
                             ),
                           ],

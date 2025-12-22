@@ -12,6 +12,7 @@ import 'services/game_service.dart';
 
 import 'models/game_model.dart';
 import 'widgets/shinny_overlay.dart'; // Shiny overlay for all screens
+import 'widgets/gradient_circular_progress_indicator.dart';
 
 class AppColors extends ThemeExtension<AppColors> {
   final Color screenBackground;
@@ -299,7 +300,21 @@ class _FeedPlayAppState extends State<FeedPlayApp> {
             child: child ??
                 const Scaffold(
                   backgroundColor: Color(0xFF0B1C2C),
-                  body: Center(child: CircularProgressIndicator()),
+                  body: Center(
+                    child: GradientCircularProgressIndicator(
+                      radius: 30.0,
+                      strokeWidth: 6.0,
+                      colors: [
+                        Color(0xFFFF8C42), // Clean Orange
+                        Color(0xFFFF1493), // Fresh Pink
+                        Color(0xFF9D4EDD), // Vibrant Purple
+                        Color(0xFF4361EE), // Clear Blue
+                        Color(0xFF34D399), // Emerald Green
+                        Color(0xFFFACC15), // Amber Yellow
+                      ],
+                      duration: Duration(seconds: 3),
+                    ),
+                  ),
                 ),
           ),
         );
@@ -380,7 +395,19 @@ class _DeepLinkHandlerState extends State<_DeepLinkHandler> {
     return const Scaffold(
       backgroundColor: Color(0xFF0B1C2C),
       body: Center(
-        child: CircularProgressIndicator(),
+        child: GradientCircularProgressIndicator(
+          radius: 30.0,
+          strokeWidth: 6.0,
+          colors: [
+            Color(0xFFFF8C42), // Clean Orange
+            Color(0xFFFF1493), // Fresh Pink
+            Color(0xFF9D4EDD), // Vibrant Purple
+            Color(0xFF4361EE), // Clear Blue
+            Color(0xFF34D399), // Emerald Green
+            Color(0xFFFACC15), // Amber Yellow
+          ],
+          duration: Duration(seconds: 3),
+        ),
       ),
     );
   }

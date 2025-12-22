@@ -6,6 +6,7 @@ import '../services/interstitial_ads_service.dart';
 import '../services/native_ads_service.dart'; // Import NativeAdsService
 import 'game_player_screen.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart'; // Import for NativeAdWidget
+import '../widgets/gradient_circular_progress_indicator.dart';
 
 class HorizontalGamesScreen extends StatefulWidget {
   const HorizontalGamesScreen({super.key});
@@ -143,7 +144,21 @@ class _HorizontalGamesScreenState extends State<HorizontalGamesScreen> {
           ),
           Expanded(
             child: isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(
+                    child: GradientCircularProgressIndicator(
+                      radius: 30.0,
+                      strokeWidth: 6.0,
+                      colors: [
+                        Color(0xFFFF8C42), // Clean Orange
+                        Color(0xFFFF1493), // Fresh Pink
+                        Color(0xFF9D4EDD), // Vibrant Purple
+                        Color(0xFF4361EE), // Clear Blue
+                        Color(0xFF34D399), // Emerald Green
+                        Color(0xFFFACC15), // Amber Yellow
+                      ],
+                      duration: Duration(seconds: 3),
+                    ),
+                  )
                 : _interleavedItems.isEmpty
                     ? const Center(
                         child: Column(
@@ -338,8 +353,21 @@ class _GameCard extends StatelessWidget {
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Container(
                           color: Colors.grey[800],
-                          child:
-                              const Center(child: CircularProgressIndicator()),
+                          child: const Center(
+                            child: GradientCircularProgressIndicator(
+                              radius: 20.0,
+                              strokeWidth: 4.0,
+                              colors: [
+                                Color(0xFFFF8C42), // Clean Orange
+                                Color(0xFFFF1493), // Fresh Pink
+                                Color(0xFF9D4EDD), // Vibrant Purple
+                                Color(0xFF4361EE), // Clear Blue
+                                Color(0xFF34D399), // Emerald Green
+                                Color(0xFFFACC15), // Amber Yellow
+                              ],
+                              duration: Duration(seconds: 2),
+                            ),
+                          ),
                         ),
                         errorWidget: (context, url, error) => Container(
                           color: Colors.grey[800],

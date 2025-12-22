@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:math';
 import 'home_screen.dart';
 import '../services/game_service.dart';
+import '../services/notification_service.dart'; // Import NotificationService
 
 class AppSplashScreen extends StatefulWidget {
   const AppSplashScreen({super.key});
@@ -44,6 +45,9 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
     // This ensures games are ready when home screen opens
     GameService.loadHorizontalGames(forceRefresh: true);
     GameService.loadVerticalGames(forceRefresh: true);
+
+    // Request notification permissions
+    NotificationService.requestNotificationPermissions();
     
     // Navigate to HomeScreen after 3 seconds
     Timer(const Duration(seconds: 3), () {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../widgets/gradient_circular_progress_indicator.dart';
 
 class GamePlayerScreen extends StatefulWidget {
   final String gameName;
@@ -244,7 +245,21 @@ class _GamePlayerScreenState extends State<GamePlayerScreen> {
 
   Widget _buildMobileView() {
     if (_controller == null) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: GradientCircularProgressIndicator(
+          radius: 30.0,
+          strokeWidth: 6.0,
+          colors: [
+            Color(0xFFFF8C42), // Clean Orange
+            Color(0xFFFF1493), // Fresh Pink
+            Color(0xFF9D4EDD), // Vibrant Purple
+            Color(0xFF4361EE), // Clear Blue
+            Color(0xFF34D399), // Emerald Green
+            Color(0xFFFACC15), // Amber Yellow
+          ],
+          duration: Duration(seconds: 3),
+        ),
+      );
     }
 
     return Stack(
@@ -254,7 +269,19 @@ class _GamePlayerScreenState extends State<GamePlayerScreen> {
           Container(
             color: const Color(0xFF0B1C2C),
             child: const Center(
-              child: CircularProgressIndicator(),
+              child: GradientCircularProgressIndicator(
+                radius: 30.0, // Size increase
+                strokeWidth: 6.0, // Boldness increase
+                colors: [
+                  Color(0xFFFF8C42), // Clean Orange
+                  Color(0xFFFF1493), // Fresh Pink
+                  Color(0xFF9D4EDD), // Vibrant Purple
+                  Color(0xFF4361EE), // Clear Blue
+                  Color(0xFF34D399), // Emerald Green
+                  Color(0xFFFACC15), // Amber Yellow
+                ],
+                duration: Duration(seconds: 3), // Rotation speed
+              ),
             ),
           ),
       ],

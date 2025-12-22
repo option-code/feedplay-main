@@ -24,6 +24,35 @@ class NotificationService {
     "Check out these awesome games! 🌟",
   ];
 
+  static Future<bool?> requestNotificationPermissions() async {
+    if (kIsWeb) {
+      print('Notifications not supported on web platform');
+      return false;
+    }
+    // Request permission for Android 13+
+    final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+        _notifications.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    if (androidImplementation != null) {
+      return await androidImplementation.requestNotificationsPermission();
+        }
+        return false;
+      }
+
+  static Future<bool> checkNotificationPermissions() async {
+    if (kIsWeb) {
+      return false;
+    }
+    final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
+        _notifications.resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    if (androidImplementation != null) {
+      final bool? granted = await androidImplementation.areNotificationsEnabled();
+      return granted ?? false;
+    }
+    return false;
+  }
+
   static Future<void> initialize() async {
     if (_initialized) return;
 
