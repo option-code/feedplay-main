@@ -26,6 +26,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import '../widgets/blinking_stars.dart';
 import '../widgets/twinkle_particles.dart';
 import '../utils/blink_sound.dart' as blink_sound;
+import '../widgets/gradient_circular_progress_indicator.dart';
 
 // import 'game_player_screen.dart';
 
@@ -4976,8 +4977,18 @@ class _GameScreenState extends State<GameScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const CircularProgressIndicator(
-                              color: Color(0xFF8B5CF6),
+                            const GradientCircularProgressIndicator(
+                              radius: 30.0,
+                              strokeWidth: 6.0,
+                              colors: [
+                                Color(0xFFFF8C42), // Clean Orange
+                                Color(0xFFFF1493), // Fresh Pink
+                                Color(0xFF9D4EDD), // Vibrant Purple
+                                Color(0xFF4361EE), // Clear Blue
+                                Color(0xFF34D399), // Emerald Green
+                                Color(0xFFFACC15), // Amber Yellow
+                              ],
+                              duration: Duration(seconds: 3),
                             ),
                             const SizedBox(height: 16),
                             Text(
