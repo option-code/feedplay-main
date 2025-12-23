@@ -92,7 +92,7 @@ class _GradientCircularProgressPainter extends CustomPainter {
     canvas.drawArc(
       Rect.fromCircle(center: center, radius: radius),
       -math.pi / 2, // Start from the top
-      math.pi * 2 * 0.8, // Draw 80% of the circle to show progress
+      math.pi * 2, // Draw a full circle
       false,
       paint,
     );
