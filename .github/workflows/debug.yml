@@ -34,8 +34,10 @@ jobs:
       - name: Check Flutter installation
         run: flutter doctor -v
 
-      - name: Build Debug APK
-        run: flutter build apk --debug
+      - name: Build Debug APK and AAB
+        run: |
+          flutter build apk --debug
+          flutter build appbundle --debug
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
@@ -43,6 +45,21 @@ jobs:
           name: debug-apk
           path: build/app/outputs/flutter-apk/app-debug.apk
           retention-days: 3
+
+      - name: Upload Debug AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-aab
+          path: build/app/outputs/bundle/debug/app-debug.aab
+          retention-days: 3
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: |
+            build/app/outputs/flutter-apk/**/*.apk
+            build/app/outputs/bundle/**/*.aab
 
       - name: APK Build Info
         run: |
