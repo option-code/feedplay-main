@@ -1,17 +1,17 @@
 name: Debug APK
 
-#on:
- # push:  # 🔁 Enable this to auto-trigger on code push
-  #  branches:
-      #- main
-      #- master
-      #- develop
-      #- 'feature/**'  # Auto trigger on feature branches
-  #pull_request:  # 🔁 Enable this to auto-trigger on PRs
-    #branches:
-     # - main
-      #- master
-      #- develop
+# on:
+  # push:  # 🔁 Enable this to auto-trigger on code push
+  #   branches:
+  #     - main
+  #     - master
+  #     - develop
+  #     - 'feature/**'  # Auto trigger on feature branches
+  # pull_request:  # 🔁 Enable this to auto-trigger on PRs
+  #   branches:
+  #     - main
+  #     - master
+  #     - develop
   # workflow_dispatch: # ✅ Manual triggering only (currently active)
 
 jobs:
