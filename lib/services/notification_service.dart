@@ -104,6 +104,35 @@ class NotificationService {
     }
   }
 
+  static Future<void> showTestNotification() async {
+    await initialize();
+    if (kIsWeb) {
+      print('Test notifications not supported on web platform');
+      return;
+    }
+
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'test_channel',
+      'Test Notifications',
+      channelDescription: 'Channel for testing notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+      icon: '@drawable/notification_icon',
+      largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
+    );
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+    await _notifications.show(
+      0,
+      'Test Notification',
+      'This is a test notification from FeedPlay.',
+      platformChannelSpecifics,
+      payload: 'test_notification',
+    );
+    print('Test notification shown.');
+  }
+
   static void _onNotificationTap(NotificationResponse response) {
     // Handle notification tap - can navigate to specific screen
     print('Notification tapped: ${response.payload}');

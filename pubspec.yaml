@@ -1,7 +1,7 @@
 name: feedplay
 description:  FeedPlay - HTML5 Games App
 publish_to: 'none'
-version: 1.0.0+gp-1
+version: 1.0.0+FP-1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'

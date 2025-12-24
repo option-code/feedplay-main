@@ -1093,7 +1093,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   // Helper function to check if index should show an ad (only if ad is actually loaded)
   // Works for ALL categories: All, Premium, Favourites, and all other categories
-  static const int _adGap = 10;
+  static const int _adGap = 20;
 
   bool _shouldShowAd(int index) {
     print('DEBUG: _shouldShowAd called for index: $index');
@@ -1177,7 +1177,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     // Select 2 random premium games as "free for today"
     final premiumList = premiumGameIds.toList()..shuffle();
-    freeForTodayIds = premiumList.take(2).toSet();
+    freeForTodayIds = premiumList.take(5).toSet();
 
     // Debug: Print premium games info
     print('🔒 Premium Games Info:');
@@ -1798,20 +1798,26 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                         final gameToPlay = game;
                                         Navigator.pop(context); // Close modal
 
-                                        // Show interstitial ad, then navigate to game using parent context
-                                        await InterstitialAdsService
-                                            .showInterstitialAd(
-                                          onAdDismissed: () {
-                                            print(
-                                                '📴 Interstitial ad dismissed, navigating to game...');
-                                            // Navigation will happen after await completes
-                                          },
-                                          onAdFailed: () {
-                                            print(
-                                                '❌ Interstitial ad failed, navigating to game anyway...');
-                                            // Navigation will happen after await completes
-                                          },
-                                        );
+                                        // Check if the game is "free for today"
+                                        if (isFreeForToday(gameToPlay)) {
+                                          print(
+                                              '🎮 Free game, navigating directly to game: ${gameToPlay.gameName}');
+                                        } else {
+                                          // Show interstitial ad, then navigate to game using parent context
+                                          await InterstitialAdsService
+                                              .showInterstitialAd(
+                                            onAdDismissed: () {
+                                              print(
+                                                  '📴 Interstitial ad dismissed, navigating to game...');
+                                              // Navigation will happen after await completes
+                                            },
+                                            onAdFailed: () {
+                                              print(
+                                                  '❌ Interstitial ad failed, navigating to game anyway...');
+                                              // Navigation will happen after await completes
+                                            },
+                                          );
+                                        }
 
                                         // Navigate to game after ad is dismissed or failed
                                         // Use parent context for navigation (not modal context)

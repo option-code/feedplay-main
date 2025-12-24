@@ -155,7 +155,7 @@ void main() async {
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     // Wait for app to fully render and WebView to stabilize
     await Future.delayed(
-        const Duration(seconds: 3)); // Longer delay after first frame
+        const Duration(seconds: 1)); // Reduced delay after first frame
 
     try {
       print('🔧 Initializing AdMob...');
@@ -179,8 +179,8 @@ void main() async {
       print('✅ AdMob initialized successfully!');
       print('⏳ Preloading ads in 5 seconds...');
 
-      // Delay ad preloading further to ensure WebView is stable
-      Future.delayed(const Duration(seconds: 5), () async {
+      Future.delayed(const Duration(seconds: 1), () async {
+        // Reduced delay for ad preloading
         print('📥 Starting ad preload...');
         // Preload both rewarded and interstitial ads
         RewardAdsService.preloadRewardedAd().then((success) {
