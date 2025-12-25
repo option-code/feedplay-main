@@ -23,8 +23,6 @@ import '../services/in_app_update_service.dart';
 import '../models/game_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import '../widgets/blinking_stars.dart';
-import '../widgets/twinkle_particles.dart';
 import '../utils/blink_sound.dart' as blink_sound;
 import '../widgets/gradient_circular_progress_indicator.dart';
 
@@ -52,22 +50,10 @@ class _NativeAdWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF6366F1).withValues(alpha: 0.8),
-            blurRadius: 40,
-            spreadRadius: 8,
-            offset: const Offset(0, 20),
-          ),
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.7),
-            blurRadius: 35,
-            spreadRadius: 6,
-            offset: const Offset(0, 15),
-          ),
-          BoxShadow(
-            color: const Color(0xFF6366F1).withValues(alpha: 0.6),
-            blurRadius: 25,
-            spreadRadius: 4,
-            offset: const Offset(0, 10),
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 15,
+            spreadRadius: 2,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -138,22 +124,10 @@ class _NativeAdPlaceholder extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF6366F1).withValues(alpha: 0.8),
-            blurRadius: 40,
-            spreadRadius: 8,
-            offset: const Offset(0, 20),
-          ),
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.7),
-            blurRadius: 35,
-            spreadRadius: 6,
-            offset: const Offset(0, 15),
-          ),
-          BoxShadow(
-            color: const Color(0xFF6366F1).withValues(alpha: 0.6),
-            blurRadius: 25,
-            spreadRadius: 4,
-            offset: const Offset(0, 10),
+            color: Colors.black.withValues(alpha: 0.4),
+            blurRadius: 15,
+            spreadRadius: 2,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -363,16 +337,10 @@ class _HorizontalFavoritesListState extends State<_HorizontalFavoritesList> {
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF6366F1).withValues(alpha: 0.8),
-              blurRadius: 35,
-              spreadRadius: 6,
-              offset: const Offset(0, 15),
-            ),
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.6),
-              blurRadius: 28,
-              spreadRadius: 4,
-              offset: const Offset(0, 12),
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 12,
+              spreadRadius: 2,
+              offset: const Offset(0, 6),
             ),
           ],
         ),
@@ -591,15 +559,9 @@ class _CategoryNavButton extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.45),
-                blurRadius: 18,
-                offset: const Offset(0, 8),
-              ),
-              BoxShadow(
-                color: Colors.white.withValues(alpha: 0.08),
-                blurRadius: 12,
-                spreadRadius: -5,
-                offset: const Offset(-3, -3),
+                color: Colors.black.withValues(alpha: 0.3),
+                blurRadius: 10,
+                offset: const Offset(0, 5),
               ),
             ],
           ),
@@ -642,16 +604,9 @@ class _SettingsItem extends StatelessWidget {
           // Glassy shine effect
           boxShadow: [
             BoxShadow(
-              color: Colors.white.withValues(alpha: 0.1),
-              blurRadius: 20,
-              spreadRadius: -5,
-              offset: const Offset(-5, -5),
-            ),
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
-              blurRadius: 15,
-              spreadRadius: 2,
-              offset: const Offset(5, 5),
+              color: Colors.black.withValues(alpha: 0.2),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
             ),
           ],
         ),
@@ -668,9 +623,8 @@ class _SettingsItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFF6366F1).withValues(alpha: 0.4),
-                    blurRadius: 12,
-                    spreadRadius: 1,
+                    color: const Color(0xFF6366F1).withValues(alpha: 0.2),
+                    blurRadius: 8,
                     offset: const Offset(0, 4),
                   ),
                 ],
@@ -1295,27 +1249,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                       ),
                       // Enhanced glassy shine effect for modal
                       boxShadow: [
-                        // Top shine (light reflection)
                         BoxShadow(
-                          color: Colors.white.withValues(alpha: 0.1),
-                          blurRadius: 30,
-                          spreadRadius: -10,
+                          color: Colors.black.withValues(alpha: 0.5),
+                          blurRadius: 25,
                           offset: const Offset(0, -10),
-                        ),
-                        // Bottom shadow for depth
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.7),
-                          blurRadius: 40,
-                          spreadRadius: 0,
-                          offset: const Offset(0, -8),
-                        ),
-                        // Colored glow
-                        BoxShadow(
-                          color:
-                              const Color(0xFF6366F1).withValues(alpha: 0.25),
-                          blurRadius: 35,
-                          spreadRadius: 5,
-                          offset: const Offset(0, -5),
                         ),
                       ],
                     ),
@@ -1499,9 +1436,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                           boxShadow: [
                                             BoxShadow(
                                               color: const Color(0xFF6366F1)
-                                                  .withValues(alpha: 0.4),
-                                              blurRadius: 12,
-                                              spreadRadius: 2,
+                                                  .withValues(alpha: 0.2),
+                                              blurRadius: 8,
                                               offset: const Offset(0, 4),
                                             ),
                                           ],
@@ -1864,9 +1800,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                             color: (isLocked
                                                     ? const Color(0xFF6366F1)
                                                     : const Color(0xFF10B981))
-                                                .withValues(alpha: 0.5),
-                                            blurRadius: 20,
-                                            spreadRadius: 2,
+                                                .withValues(alpha: 0.3),
+                                            blurRadius: 12,
                                             offset: const Offset(0, 6),
                                           ),
                                         ],
@@ -3333,28 +3268,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  Future<void> _launchStoreUrl() async {
-    final TargetPlatform platform = Theme.of(context).platform;
-    final String packageName = (await PackageInfo.fromPlatform()).packageName;
-    String url;
-    if (platform == TargetPlatform.android) {
-      url = 'market://details?id=$packageName';
-    } else if (platform == TargetPlatform.iOS) {
-      url =
-          'https://apps.apple.com/app/id<YOUR_APP_ID>'; // Replace <YOUR_APP_ID> with your actual Apple App ID
-    } else {
-      url =
-          'https://play.google.com/store/apps/details?id=$packageName'; // Fallback for other platforms
-    }
-
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
-    } else {
-      // Handle error: could not launch URL
-      print('Could not launch $url');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -3504,329 +3417,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 icon: Icons.star_outline,
                 title: 'Rate App',
                 onTap: () async {
-                  await blink_sound.ensureBlinkAudioUnlocked();
-                  if (!context.mounted) return;
-                  showGeneralDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    barrierLabel: 'Rate App',
-                    barrierColor: Colors.black.withValues(alpha: 0.5),
-                    pageBuilder: (context, _, __) {
-                      return StatefulBuilder(
-                        builder: (context, setDialogState) {
-                          int dialogCurrentRating =
-                              0; // Local state for the dialog
-                          return Dialog(
-                            // Using Dialog instead of AlertDialog for more custom control
-                            backgroundColor: Colors
-                                .transparent, // Make background transparent to show custom container
-                            child: Container(
-                              padding: const EdgeInsets.all(24),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context)
-                                    .appColors
-                                    .dialogBackground,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withValues(alpha: 77),
-                                    blurRadius: 15,
-                                    spreadRadius: 5,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  // Close button
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: IconButton(
-                                      icon: Icon(Icons.close,
-                                          color: Theme.of(context)
-                                              .appColors
-                                              .textSecondary),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  // App Icon
-                                  Image.asset(
-                                    'assets/icon.png', // Assuming you have an app icon here
-                                    width: 80,
-                                    height: 80,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  // Title
-                                  Text(
-                                    'Rate FeedPlay',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .appColors
-                                          .textPrimary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  // Message
-                                  Text(
-                                    'Enjoying FeedPlay? Please take a moment to rate us on the App Store!',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Theme.of(context)
-                                          .appColors
-                                          .textSecondary,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  // Interactive Stars
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: List.generate(5, (index) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          setDialogState(() {
-                                            dialogCurrentRating = index + 1;
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.star_rounded,
-                                          color: index < dialogCurrentRating
-                                              ? Colors.amber
-                                              : Colors.grey,
-                                          size: 40, // Slightly larger stars
-                                        ),
-                                      );
-                                    }),
-                                  ),
-                                  const SizedBox(height: 30),
-                                  // Action Buttons
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Expanded(
-                                        child: TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          style: TextButton.styleFrom(
-                                            foregroundColor: Theme.of(context)
-                                                .appColors
-                                                .textSecondary,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                          ),
-                                          child: const Text(
-                                            'Later',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            _launchStoreUrl();
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Theme.of(context)
-                                                .appColors
-                                                .buttonBackground,
-                                            foregroundColor: Theme.of(context)
-                                                .appColors
-                                                .buttonText,
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                          ),
-                                          child: const Text(
-                                            'Rate Now',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    transitionDuration: const Duration(milliseconds: 350),
-                    transitionBuilder:
-                        (context, animation, secondaryAnimation, child) {
-                      final scale =
-                          Tween<double>(begin: 0.92, end: 1.0).animate(
-                        CurvedAnimation(
-                            parent: animation, curve: Curves.easeOutBack),
-                      );
-                      final fade = Tween<double>(begin: 0.0, end: 1.0).animate(
-                        CurvedAnimation(
-                            parent: animation, curve: Curves.easeOut),
-                      );
-                      return FadeTransition(
-                        opacity: fade,
-                        child: ScaleTransition(
-                          scale: scale,
-                          child: Center(
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 24),
-                              padding: const EdgeInsets.fromLTRB(24, 24, 24, 8),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1A1F2E)
-                                    .withValues(alpha: 0.95),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: const Color(0xFF6366F1)
-                                      .withValues(alpha: 0.35),
-                                  width: 1.6,
-                                ),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Color(0x602B2E43),
-                                    blurRadius: 24,
-                                    spreadRadius: 2,
-                                    offset: Offset(0, 12),
-                                  ),
-                                ],
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xFF1A1F2E),
-                                    Color(0xFF22263A),
-                                  ],
-                                ),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: IconButton(
-                                      icon: const Icon(Icons.close,
-                                          color: Colors.white54),
-                                      onPressed: () =>
-                                          Navigator.of(context).pop(),
-                                    ),
-                                  ),
-                                  // Pulsing neon ring behind stars
-                                  Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      const SizedBox(
-                                        width: 220,
-                                        height: 140,
-                                        child: TwinkleParticles(
-                                          area: Size(220, 140),
-                                          color: Color(0xFF6366F1),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 110 + (animation.value * 20),
-                                        height: 110 + (animation.value * 20),
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: const Color(0xFF6366F1)
-                                                  .withValues(alpha: 0.35),
-                                              blurRadius:
-                                                  20 + (animation.value * 20),
-                                              spreadRadius:
-                                                  2 + (animation.value * 2),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const BlinkingStars(size: 28),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const Text(
-                                    'Enjoying FeedPlay? Please rate us on the Play Store.',
-                                    style: TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 15,
-                                      height: 1.5,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      TextButton.icon(
-                                        onPressed: () async {
-                                          final navigator =
-                                              Navigator.of(context);
-                                          await RateShareService
-                                              .updateLastRateReminderDate();
-                                          if (!context.mounted) return;
-                                          navigator.pop();
-                                        },
-                                        icon: const Icon(Icons.schedule,
-                                            color: Colors.white54),
-                                        label: const Text(
-                                          'Later',
-                                          style:
-                                              TextStyle(color: Colors.white54),
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      ElevatedButton.icon(
-                                        onPressed: () async {
-                                          final navigator =
-                                              Navigator.of(context);
-                                          await RateShareService.rateApp();
-                                          await RateShareService
-                                              .markRateDialogShown();
-                                          if (!context.mounted) return;
-                                          navigator.pop();
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              const Color(0xFF6366F1),
-                                          foregroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                        icon: const Icon(Icons.star,
-                                            color: Colors.white),
-                                        label: const Text('Rate Now'),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                  await RateShareService.rateApp();
                 },
               ),
               const SizedBox(height: 12),
@@ -4584,13 +4175,6 @@ class _GameScreenState extends State<GameScreen> {
             _checkAndShowRateDialog();
           }
         });
-      } else if (gamesPlayedCount == 4) {
-        // Show share dialog after a short delay (while game is playing)
-        Future.delayed(const Duration(seconds: 3), () {
-          if (mounted) {
-            _checkAndShowShareDialog();
-          }
-        });
       }
     }
   }
@@ -4603,146 +4187,13 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  // Check and show share dialog
-  Future<void> _checkAndShowShareDialog() async {
-    final shouldShow = await RateShareService.shouldShowShareReminder();
-    if (shouldShow && mounted) {
-      _showShareDialogInGame();
-    }
-  }
-
   // Show rate dialog in game screen
   void _showRateDialogInGame() async {
     final localContext = context;
     await blink_sound.ensureBlinkAudioUnlocked();
     if (!localContext.mounted) return;
-    showDialog<void>(
-      context: localContext,
-      barrierDismissible: false,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F2E),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        title: const Row(
-          children: [
-            Icon(Icons.star, color: Color(0xFFFBBF24), size: 28),
-            SizedBox(width: 12),
-            Text(
-              'Rate FeedPlay',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        content: const Text(
-          'Enjoying FeedPlay? Your feedback helps us improve! Please rate us on the Play Store.',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 15,
-            height: 1.5,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              await RateShareService.updateLastRateReminderDate();
-              if (!mounted || !dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-            },
-            child: const Text(
-              'Later',
-              style: TextStyle(color: Colors.white54),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              await RateShareService.rateApp();
-              await RateShareService.markRateDialogShown();
-              if (!mounted || !dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF6366F1),
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text('Rate Now'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Show share dialog in game screen
-  void _showShareDialogInGame() {
-    if (!mounted) return;
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: const Color(0xFF1A1F2E),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        title: const Row(
-          children: [
-            Icon(Icons.share, color: Color(0xFF10B981), size: 28),
-            SizedBox(width: 12),
-            Text(
-              'Share FeedPlay',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        content: const Text(
-          'Love FeedPlay? Share it with your friends and let them enjoy amazing games too!',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 15,
-            height: 1.5,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () async {
-              await RateShareService.updateLastShareReminderDate();
-              if (!mounted || !dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-            },
-            child: const Text(
-              'Later',
-              style: TextStyle(color: Colors.white54),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: () async {
-              await RateShareService.shareApp();
-              await RateShareService.markShareDialogShown();
-              if (!mounted || !dialogContext.mounted) return;
-              Navigator.pop(dialogContext);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF10B981),
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            child: const Text('Share Now'),
-          ),
-        ],
-      ),
-    );
+    await RateShareService.rateApp();
+    await RateShareService.markRateDialogShown();
   }
 
   // Handle error silently (no dialog shown)
