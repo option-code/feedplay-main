@@ -3420,6 +3420,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   await RateShareService.rateApp();
                 },
               ),
+
               const SizedBox(height: 12),
               _SettingsItem(
                 icon: Icons.help_outline,

@@ -3,7 +3,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:in_app_review/in_app_review.dart';
 
 class RateShareService {
   static const String _hasRatedKey = 'has_rated_app';
@@ -127,30 +126,21 @@ class RateShareService {
   /// Open app store for rating
   static Future<void> rateApp() async {
     try {
-      final InAppReview inAppReview = InAppReview.instance;
+      // Android Play Store URL (replace with your actual package name)
+      const androidUrl =
+          'https://play.google.com/store/apps/details?id=com.betapix.feedplay';
+      // iOS App Store URL (replace with your actual app ID)
+      const iosUrl = 'https://apps.apple.com/app/id1234567890';
 
-      if (await inAppReview.isAvailable()) {
-        await inAppReview.requestReview();
-        // We don't mark as rated here because the user might dismiss the dialog
-        // without actually leaving a review.
-      } else {
-        // Fallback to opening the store listing if in-app review is not available
-        // Android Play Store URL (replace with your actual package name)
-        const androidUrl =
-            'https://play.google.com/store/apps/details?id=com.betapix.feedplay';
-        // iOS App Store URL (replace with your actual app ID)
-        const iosUrl = 'https://apps.apple.com/app/id1234567890';
+      // Detect platform and use appropriate URL
+      final url = Uri.parse(
+        defaultTargetPlatform == TargetPlatform.iOS ? iosUrl : androidUrl,
+      );
 
-        // Detect platform and use appropriate URL
-        final url = Uri.parse(
-          defaultTargetPlatform == TargetPlatform.iOS ? iosUrl : androidUrl,
-        );
-
-        if (await canLaunchUrl(url)) {
-          await launchUrl(url, mode: LaunchMode.externalApplication);
-          // We can mark as rated here, as the user is explicitly taken to the store.
-          await markAsRated();
-        }
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+        // We can mark as rated here, as the user is explicitly taken to the store.
+        await markAsRated();
       }
     } catch (e) {
       print('Error opening app store or showing in-app review: $e');
@@ -164,7 +154,7 @@ class RateShareService {
       await SharePlus.instance.share(
         ShareParams(
           text:
-              'Check out FeedPlay - Your Gateway to HTML5 Gaming!\n\nPlay unlimited games anytime, anywhere!\n\nDownload now: https://play.google.com/store/apps/details?id=com.betapix.feedplay',
+              'Check out FeedPlay - Your Gateway to HTML5 Gaming!\n\nPlay unlimited games anytime, anywhere!\n\nDownload now: https://play.google.com/store/apps/details?id=com.betapix.feedplay\n\nearn free money unlimited\nhttps://freecash.com/r/EHF1D',
           subject: 'FeedPlay - Amazing Games App',
         ),
       );
