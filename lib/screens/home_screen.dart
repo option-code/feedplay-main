@@ -10,7 +10,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../services/game_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../services/connectivity_service.dart';
 import '../services/offline_storage_service.dart';
 import '../services/notification_service.dart';
 import '../services/reward_ads_service.dart';
@@ -19,6 +18,8 @@ import '../services/native_ads_service.dart';
 import '../services/launcher_shortcuts_service.dart';
 import '../services/rate_share_service.dart';
 import '../services/consent_dialog_service.dart';
+import '../services/connectivity_service.dart';
+
 import '../services/in_app_update_service.dart';
 import '../models/game_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -1679,9 +1680,35 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                     onTap: () async {
                                       if (game.gameUrl.isEmpty) return;
 
+                                      // Check network connectivity
+                                      bool isOnline =
+                                          await ConnectivityService()
+                                              .checkConnection();
+                                      if (!isOnline) {
+                                        if (parentContext.mounted) {
+                                          ScaffoldMessenger.of(parentContext)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                "You're offline",
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              elevation: 0,
+                                              duration: Duration(seconds: 2),
+                                            ),
+                                          );
+                                        }
+                                        return; // Prevent game launch if offline
+                                      }
+
                                       // Check if game is locked
                                       if (isLocked) {
                                         // Show loading indicator
+                                        if (!context.mounted) return;
                                         showDialog(
                                           context: context,
                                           barrierDismissible: false,
@@ -1732,6 +1759,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                         // Game is unlocked - show interstitial ad before playing
                                         // Store game reference and close modal
                                         final gameToPlay = game;
+                                        if (!context.mounted) return;
                                         Navigator.pop(context); // Close modal
 
                                         // Check if the game is "free for today"
