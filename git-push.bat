@@ -1,36 +1,35 @@
 @echo off
-:: 🚀 Auto Git Commit & Push Script by Abdul Mueed (with Matrix intro)
-
-:: Set text color: 0A = black background, bright green text
-color 0A
+:: 🚀 Auto Git Commit & Push Script by Abdul Mueed (Multi-Color Matrix Intro)
 
 :: Set terminal title
 title 💻 MATRIX PUSH MODE - Abdul Mueed 🚀
 
-:: 🌌 MATRIX RAIN ANIMATION
-for /L %%n in (1,1,30) do (
-    setlocal enabledelayedexpansion
-    set "line="
-    for /L %%i in (1,1,80) do (
-        set /A "r=!random! %% 40"
-        if !r! lss 10 (
-            set "char=1"
-        ) else if !r! lss 20 (
-            set "char=0"
-        ) else if !r! lss 25 (
-            set "char=@"
-        ) else if !r! lss 30 (
-            set "char=$"
-        ) else (
-            set "char= "
+:: 🌌 MULTI-COLOR MATRIX RAIN (Green → Blue → Purple)
+for %%c in (0A 09 0D) do (
+    color %%c
+    for /L %%n in (1,1,10) do (
+        setlocal enabledelayedexpansion
+        set "line="
+        for /L %%i in (1,1,80) do (
+            set /A "r=!random! %% 40"
+            if !r! lss 10 (
+                set "char=1"
+            ) else if !r! lss 20 (
+                set "char=0"
+            ) else if !r! lss 25 (
+                set "char=@"
+            ) else if !r! lss 30 (
+                set "char=$"
+            ) else (
+                set "char= "
+            )
+            set "line=!line!!char!"
         )
-        set "line=!line!!char!"
+        echo !line!
+        endlocal
     )
-    echo !line!
-    timeout /nobreak /t 0 >nul
-    endlocal
+    cls
 )
-cls
 
 :: 🌟 Header after Matrix rain
 echo ================================================
