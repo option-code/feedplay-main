@@ -1,6 +1,6 @@
 {
-    "name": "GamePlus",
-    "short_name": "GamePlus",
+    "name": "FeedPlay",
+    "short_name": "FeedPlay",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0B1C2C",

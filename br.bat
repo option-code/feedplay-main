@@ -1,6 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
-title Flutter Web + Python Server
+title Flutter Web + Python Server (Dynamic Port)
 
 echo ========================================
 echo Build Flutter Web and Run Python Server
@@ -28,30 +28,37 @@ if not exist "build\web" (
     exit /b 1
 )
 
-REM Step 3: Start Python server in foreground so it can be killed properly
-echo [3/4] Starting Python server on port 9090...
+REM Step 3: Get a free dynamic port using Python
+for /f %%p in ('python -c "import socket;s=socket.socket();s.bind(('',0));print(s.getsockname()[1]);s.close()"') do (
+    set PORT=%%p
+)
+
+echo [3/4] Assigned free port: %PORT%
+echo.
+
+REM Step 4: Start Python server
+echo Starting Python server...
 echo Server will run until you press Ctrl+C to stop it.
 echo Opening browser... please wait.
+
 cd /d "%~dp0build\web"
 
-REM Open browser in a separate process
-start http://localhost:9090
+REM Open browser on dynamic port
+start http://localhost:%PORT%
 
-REM Run Python server in foreground so it can be properly terminated
 echo.
 echo ========================================
-echo Server started at http://localhost:9090
+echo Server started at http://localhost:%PORT%
 echo Press Ctrl+C to stop the server
 echo ========================================
 echo.
 
-python -m http.server 9090
+python -m http.server %PORT%
 
-REM Step 4: Go back to project root when server is stopped
+REM Step 5: Go back to project root when server stops
 cd /d "%~dp0"
 
 echo.
 echo Server stopped.
-echo.
 pause
 endlocal

@@ -165,6 +165,8 @@ class NativeAdsService {
     final ad = _nativeAds.removeAt(0);
     print(
         'Native Ad: Retrieved ad from pool and removed (remaining: ${_nativeAds.length})');
+    // Immediately try to load a new ad to replenish the pool
+    loadNativeAd(); // Don't await to avoid blocking
     return ad;
   }
 

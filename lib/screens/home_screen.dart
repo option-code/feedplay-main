@@ -1048,9 +1048,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   // Helper function to check if index should show an ad (only if ad is actually loaded)
   // Works for ALL categories: All, Premium, Favourites, and all other categories
-  static const int _adGap = 20;
+  static const int _adGap = 10;
 
   bool _shouldShowAd(int index) {
+    // Disable native ads on web platform
+    if (kIsWeb) {
+      return false;
+    }
+
     print('DEBUG: _shouldShowAd called for index: $index');
     if (filteredGames.isEmpty) {
       print('DEBUG: _shouldShowAd: filteredGames is empty, returning false');
@@ -1064,6 +1069,9 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   // Helper function to get actual game index accounting for ads that are actually displayed
   int _getGameIndex(int displayIndex) {
+    if (kIsWeb) { // Agar web par hain, toh ads ko account na karein
+      return displayIndex;
+    }
     final adCount = (displayIndex ~/ _adGap) + 1;
     return displayIndex - adCount;
   }
@@ -1073,6 +1081,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   int _getTotalItemCount() {
     final gameCount = filteredGames.length;
     if (gameCount == 0) return 0;
+
+    if (kIsWeb) { // Agar web par hain, toh total item count sirf games ka count hoga
+      return gameCount;
+    }
+
     int displayIndex = 0;
     int gamesPlaced = 0;
     while (gamesPlaced < gameCount) {
@@ -1762,6 +1775,16 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                         if (!context.mounted) return;
                                         Navigator.pop(context); // Close modal
 
+                                        // Show loading indicator before interstitial ad
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (context) => const Center(
+                                            child: CircularProgressIndicator(
+                                                color: Color(0xFF6366F1)),
+                                          ),
+                                        );
+
                                         // Check if the game is "free for today"
                                         if (isFreeForToday(gameToPlay)) {
                                           print(
@@ -1781,6 +1804,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                                               // Navigation will happen after await completes
                                             },
                                           );
+                                        }
+
+                                        // Close loading dialog after ad completes
+                                        if (context.mounted) {
+                                          Navigator.pop(context);
                                         }
 
                                         // Navigate to game after ad is dismissed or failed

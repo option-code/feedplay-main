@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/game_model.dart';
 import '../services/game_service.dart';
@@ -60,6 +61,13 @@ class _HorizontalGamesScreenState extends State<HorizontalGamesScreen> {
   void _buildInterleavedItems() {
     _interleavedItems.clear();
     _adInserted = false; // Reset the flag when rebuilding the list
+
+    if (kIsWeb) {
+      // Agar web par hain, toh ads insert na karein
+      _interleavedItems.addAll(filteredGames);
+      return;
+    }
+
     final List<int> adPositions = [1]; // Only show ad at position 1
 
     for (int i = 0; i < filteredGames.length; i++) {
