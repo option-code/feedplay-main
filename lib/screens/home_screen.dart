@@ -324,153 +324,159 @@ class _HorizontalFavoritesListState extends State<_HorizontalFavoritesList> {
     final showNavButtons = screenWidth >= 600; // Show buttons on tablet/desktop
 
     Widget buildItem(GameModel game) {
-      return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF6366F1),
-              Color(0xFF8B5CF6),
-              Color(0xFFEC4899),
-            ],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.3),
-              blurRadius: 12,
-              spreadRadius: 2,
-              offset: const Offset(0, 6),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.all(4),
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            color: const Color(0xFF1A1F2E).withValues(alpha: 0.9),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.2),
-              width: 1.5,
-            ),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Expanded(
-                    child: game.imagePath != null && game.imagePath!.isNotEmpty
-                        ? CachedNetworkImage(
-                            imageUrl: _resolveImageUrl(game),
-                            fit: BoxFit.cover,
-                            memCacheWidth: 280,
-                            memCacheHeight: 280,
-                            placeholder: (context, url) => Container(
-                              color: Colors.grey[800],
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Color(0xFF8B5CF6),
-                                  strokeWidth: 2,
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xFF6366F1),
+                      Color(0xFF8B5CF6),
+                      Color(0xFFEC4899),
+                    ],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      spreadRadius: 2,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(4),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1F2E).withValues(alpha: 0.9),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      width: 1.5,
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: game.imagePath != null && game.imagePath!.isNotEmpty
+                            ? CachedNetworkImage(
+                                imageUrl: _resolveImageUrl(game),
+                                fit: BoxFit.cover,
+                                memCacheWidth: 280,
+                                memCacheHeight: 280,
+                                placeholder: (context, url) => Container(
+                                  color: Colors.grey[800],
+                                  child: const Center(
+                                    child: CircularProgressIndicator(
+                                      color: Color(0xFF8B5CF6),
+                                      strokeWidth: 2,
+                                    ),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                  color: Colors.grey[800],
+                                  child: const Icon(
+                                    Icons.games,
+                                    size: 36,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                color: Colors.grey[800],
+                                child: const Icon(
+                                  Icons.games,
+                                  size: 36,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                      ),
+                      if (widget.isFreeForToday(game))
+                        Positioned(
+                          top: 8,
+                          left: 0,
+                          right: 0,
+                          child: Center(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xFF10B981),
+                                    Color(0xFF3B82F6),
+                                    Color(0xFF6366F1),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF10B981)
+                                        .withValues(alpha: 0.6),
+                                    blurRadius: 4,
+                                    spreadRadius: 1,
+                                    offset: const Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: const Text(
+                                'FREE',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 8,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                            errorWidget: (context, url, error) => Container(
-                              color: Colors.grey[800],
-                              child: const Icon(
-                                Icons.games,
-                                size: 36,
-                                color: Colors.white70,
-                              ),
+                          ),
+                        )
+                      else if (widget.isPremium(game))
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: Container(
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.6),
+                              shape: BoxShape.circle,
                             ),
-                          )
-                        : Container(
-                            color: Colors.grey[800],
                             child: const Icon(
-                              Icons.games,
-                              size: 36,
-                              color: Colors.white70,
+                              Icons.lock,
+                              size: 14,
+                              color: Colors.white,
                             ),
                           ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                    child: Text(
-                      game.gameName ?? game.name ?? 'Game',
-                      maxLines: 2,
-                      softWrap: true,
-                      overflow: TextOverflow.visible,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 11,
-                        height: 1.15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              if (widget.isFreeForToday(game))
-                Positioned(
-                  top: 4,
-                  left: 4,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                    decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color(0xFF10B981),
-                          Color(0xFF3B82F6),
-                          Color(0xFF6366F1),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF10B981).withValues(alpha: 0.6),
-                          blurRadius: 8,
-                          spreadRadius: 2,
-                          offset: const Offset(0, 3),
                         ),
-                      ],
-                    ),
-                    child: const Text(
-                      'FREE',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                )
-              else if (widget.isPremium(game))
-                Positioned(
-                  top: 4,
-                  left: 4,
-                  child: Container(
-                    width: 28,
-                    height: 28,
-                    decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.6),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.lock,
-                      size: 16,
-                      color: Colors.white,
-                    ),
+                    ],
                   ),
                 ),
-            ],
+              ),
+            ),
           ),
-        ),
+          const SizedBox(height: 8),
+          Text(
+            game.gameName ?? game.name ?? 'Game',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 11,
+              height: 1.15,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
       );
     }
 
