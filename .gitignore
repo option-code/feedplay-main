@@ -49,3 +49,14 @@ android/.gradle/
 # Website folder - exclude from git
 website/
 POLICY/
+
+# Custom additions
+6969.bat
+devtools_options.yaml
+analysis_options.yaml
+br.bat
+git-push.bat
+git-setup.bat
+run.bat
+todo.md
+revenue.md

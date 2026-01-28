@@ -41,6 +41,8 @@
             android:value="2" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- For apps targeting Android 13 or higher & SDK version 3.24.0 or lower -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
