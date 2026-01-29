@@ -100,3 +100,7 @@ lib/
 ## 📄 License
 
 Proprietary Software. All rights reserved.
+
+This project is currently PRIVATE and provided only for preview purposes.  
+Public permission and open-source licensing will be granted at a later time.
+
